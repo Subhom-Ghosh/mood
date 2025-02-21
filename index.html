@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mood Detector</title>
+  </head>
+  <link rel="stylesheet" href="style.css" />
+  <body>
+    <h2>Type your thoughts:</h2>
+    <textarea id="textInput" rows="4" cols="50"></textarea>
+    <br />
+    <button onclick="analyzeMood()">Analyze</button>
+    <h3>Result:</h3>
+    <p id="result"></p>
+
+    <script>
+      function analyzeMood() {
+        let text = document.getElementById("textInput").value;
+
+        fetch("http://127.0.0.1:5000/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: text }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById(
+              "result"
+            ).innerHTML = `<strong>Mood:</strong> ${data.mood} <br> 
+                     <strong>Suggestion:</strong> ${data.suggestion}`;
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+  </body>
+</html>
