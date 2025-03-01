@@ -15,27 +15,28 @@ def analyze_emotion(text):
     polarity = blob.sentiment.polarity
 
     # Happy, Sad & Angry Keywords
+    angry_keywords = ["angry", "furious", "irritated", "annoyed", "frustrated", "mad", "enraged", "pissed"]
     happy_keywords = ["excited", "joyful", "amazing", "great", "awesome", "fantastic", "happy"]
     sad_keywords = ["depressed", "unhappy", "lonely", "heartbroken", "miserable", "crying", "hopeless", "sad"]
-    angry_keywords = ["angry", "furious", "irritated", "annoyed", "frustrated", "mad", "enraged", "pissed"]
+   
 
-    if polarity > 0.3 or any(word in text.lower() for word in happy_keywords):
-        return "Happy", "Listen to some energetic music or go for a walk!"
+    if  any(word in text.lower() for word in angry_keywords):
+        return "Drink Water, Calm Yourself, try your hobby"
     elif polarity < -0.3 or any(word in text.lower() for word in sad_keywords):
-        return "Sad", "Watch a feel-good movie, listen to calm music, or talk to a close friend."
-    elif any(word in text.lower() for word in angry_keywords):
-        return "Angry", "Take deep breaths, drink water, or try meditation to calm yourself."
+        return "Watch a feel-good movie, listen to calm music, or talk to a close friend."
+    elif polarity > 0.3 or any(word in text.lower() for word in happy_keywords):
+        return "Listen to some energetic music or go for a walk!"
     else:
-        return "Neutral", "Try exploring a new hobby or reading something interesting."
+        return "Try exploring a new hobby or reading something interesting."
 
 # API Route
 @app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()
     text = data.get("text", "")
-    mood, suggestion = analyze_emotion(text)
+    suggestion = analyze_emotion(text)
     
-    return jsonify({"mood": mood, "suggestion": suggestion})
+    return jsonify({"suggestion": suggestion})
 
 if __name__ == '__main__':
     app.run(debug=True)
