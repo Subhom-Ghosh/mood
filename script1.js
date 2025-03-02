@@ -10,9 +10,13 @@ function analyzeMood() {
   })
     .then((response) => response.json())
     .then((data) => {
-      document.getElementById(
-        "result"
-      ).innerHTML = `<strong>Suggestion:</strong> ${data.suggestion}`;
+      document.getElementById("result").innerHTML = `<strong>Suggestion:</strong> ${data.suggestion}`;
+
+      // Change background color
+      document.body.style.backgroundColor = data.color;
+
+      // Change font color
+      document.getElementById("result").style.color = data.fontColor;
     })
     .catch((error) => console.error("Error:", error));
 }
