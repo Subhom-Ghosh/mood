@@ -3,16 +3,13 @@ body {
     background-color: #efe9e9;
     text-align: center;
     margin: 50px;
-    background-image: url(pr5.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    transition: background-color 1s ease-in-out, color 1s ease-in-out;
 }
-
 h1 {
     color: #fbe7e7;
 }
 h2{
-    color: #f4f4f4;
+    color: #000000;
 }
 
 textarea {
@@ -21,7 +18,7 @@ textarea {
     padding: 10px;
     font-size: 16px;
     background-color: antiquewhite;
-    border: 2px solid #f8f7f7;
+    border: 2px solid #da3030;
     border-radius: 5px;
     resize: none;
 }
@@ -46,5 +43,5 @@ button:hover {
     margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
-    color: #ffb1b1;
+    color: #05334e;
 }
